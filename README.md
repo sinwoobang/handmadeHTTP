@@ -3,4 +3,14 @@
 
 This server is powered by TCP but has hand-made HTTP/1.1 Parser 
 - TCP Server Reference: https://gist.github.com/Silverbaq/a14fe6b3ec57703e8cc1a63b59605876
-- HTTP Parser: myself
+- HTTP Parser: Myself
+
+### Features
+- [x] TCP Server
+- [ ] HTTP Request Method Parser
+- [ ] HTTP Request Query String Parser
+- [ ] HTTP Request Body Parser
+- [x] HTTP Response 200
+- [ ] HTTP Response 404
+- [ ] HTTP Response 302
+- [ ] Test Code
