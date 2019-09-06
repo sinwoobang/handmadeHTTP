@@ -1,4 +1,5 @@
 /* ClientHandler handles data. HTTP Parser is located on the handler. */
+import http.Request
 import http.Response
 import java.io.OutputStream
 import java.net.ServerSocket
@@ -29,22 +30,17 @@ class ClientHandler(private val client: Socket) {
 
     fun run() {
         isRunning = true
+
         while (isRunning) {
             try {
-                val raw = reader.nextLine()
-                println(">> $raw")
-                if (raw == "EXIT"){
-                    shutdown()
-                    continue
-                }
-
+                val request = Request(reader)
+                println(request)
                 val response = Response("OK")
-                print("Res >> \n" + response.toString())
                 write(response)
             } catch (ex: Exception) {
-                shutdown()
+                println(ex)
             } finally {
-
+                shutdown()
             }
 
         }
