@@ -1,19 +1,21 @@
 package http
 
-import java.util.Scanner
+import java.io.BufferedReader
 
 
-class Request(scanner: Scanner) {
+class Request(reader: BufferedReader) {
     private lateinit var method: String
     private lateinit var path: String
-    private var headers = mutableMapOf<String, String>()
-    private var body: String = ""
+    var headers = mutableMapOf<String, String>()
+        private set
+    var body: String = ""
+        private set
 
     init {
         var isFirstLine = true  // All headers lines consist of Key: Value except the first line.
-
+        var line: String
         headerParser@ while (true) {
-            val line = scanner.nextLine()
+            line = reader.readLine()
             when {
                 isFirstLine -> {  // ex. GET / HTTP/1.1
                     isFirstLine = false
@@ -33,9 +35,16 @@ class Request(scanner: Scanner) {
                 }
             }
         }
+
+        if (this.headers.containsKey("Content-Length")) {
+            val length: Int = Integer.parseInt(this.headers["Content-Length"])
+            val bodyCharArr = CharArray(length)
+            reader.read(bodyCharArr)
+            this.body = String(bodyCharArr)
+        }
     }
 
     override fun toString(): String {
-        return "Request($method $path) - $headers"
+        return "Request($method $path)"
     }
 }

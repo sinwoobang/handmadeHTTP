@@ -1,11 +1,11 @@
 /* ClientHandler handles data. HTTP Parser is located on the handler. */
 import http.Request
 import http.Response
+import java.io.BufferedReader
 import java.io.OutputStream
 import java.net.ServerSocket
 import java.net.Socket
 import java.nio.charset.Charset
-import java.util.*
 import kotlin.concurrent.thread
 
 fun main(args: Array<String>) {
@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
 }
 
 class ClientHandler(private val client: Socket) {
-    private val reader: Scanner = Scanner(client.getInputStream())
+    private val reader: BufferedReader = client.getInputStream().bufferedReader()
     private val writer: OutputStream = client.getOutputStream()
     private var isRunning: Boolean = false
 
