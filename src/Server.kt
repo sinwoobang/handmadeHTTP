@@ -39,12 +39,10 @@ class ClientHandler(private val client: Socket) {
                 println(request)
 
                 val response: AbstractResponse
-                response = if (request.path == "/404") {
-                    Response(404)
-                } else if (request.path == "/302") {
-                    ResponseRedirection("http://www.google.com/")
-                } else {
-                    Response(200, "OK")
+                response = when {
+                    request.path == "/404" -> Response(404)
+                    request.path == "/302" -> ResponseRedirection("http://www.google.com/")
+                    else -> Response(200, "OK")
                 }
 
                 write(response)
