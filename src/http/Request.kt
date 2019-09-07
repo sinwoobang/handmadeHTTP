@@ -4,8 +4,10 @@ import java.io.BufferedReader
 
 
 class Request(reader: BufferedReader) {
-    private lateinit var method: String
-    private lateinit var path: String
+    lateinit var method: String
+        private set
+    lateinit var path: String
+        private set
     var headers = mutableMapOf<String, String>()
         private set
     var body: String = ""

@@ -4,10 +4,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 
-class Response(private var body: String = "") {
-    private var statusCode: Int = 200
-
-    override fun toString(): String {
+class Response(private var statusCode: Int = 200, private var body: String = "") {
+    fun toHTTPText(): String {
         /*
         HTTP Response Example:
 

@@ -35,7 +35,14 @@ class ClientHandler(private val client: Socket) {
             try {
                 val request = Request(reader)
                 println(request)
-                val response = Response("OK")
+
+                val response: Response
+                response = if (request.path == "/404") {
+                    Response(404)
+                } else {
+                    Response(200, "OK")
+                }
+
                 write(response)
             } catch (ex: Exception) {
                 println(ex)
@@ -51,7 +58,7 @@ class ClientHandler(private val client: Socket) {
     }
 
     private fun write(response: Response) {
-        write(response.toString())
+        write(response.toHTTPText())
     }
 
     private fun shutdown() {
