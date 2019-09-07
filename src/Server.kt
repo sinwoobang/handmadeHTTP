@@ -1,6 +1,8 @@
 /* ClientHandler handles data. HTTP Parser is located on the handler. */
 import http.Request
-import http.Response
+import http.response.AbstractResponse
+import http.response.Response
+import http.response.ResponseRedirection
 import java.io.BufferedReader
 import java.io.OutputStream
 import java.net.ServerSocket
@@ -36,9 +38,11 @@ class ClientHandler(private val client: Socket) {
                 val request = Request(reader)
                 println(request)
 
-                val response: Response
+                val response: AbstractResponse
                 response = if (request.path == "/404") {
                     Response(404)
+                } else if (request.path == "/302") {
+                    ResponseRedirection("http://www.google.com/")
                 } else {
                     Response(200, "OK")
                 }
@@ -57,7 +61,7 @@ class ClientHandler(private val client: Socket) {
         writer.write((message + '\n').toByteArray(Charset.defaultCharset()))
     }
 
-    private fun write(response: Response) {
+    private fun write(response: AbstractResponse) {
         write(response.toHTTPText())
     }
 

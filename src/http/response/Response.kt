@@ -1,11 +1,11 @@
-package http
+package http.response
 
 import java.text.SimpleDateFormat
 import java.util.Date
 
 
-class Response(private var statusCode: Int = 200, private var body: String = "") {
-    fun toHTTPText(): String {
+class Response(override val statusCode: Int = 200, var body: String = ""): AbstractResponse()  {
+    override fun toHTTPText(): String {
         /*
         HTTP Response Example:
 
