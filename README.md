@@ -10,7 +10,7 @@ This server is powered by TCP but has hand-made HTTP/1.1 Parser
 - [x] HTTP Request Method Parser
 - [x] HTTP Request URI Parser
 - [ ] HTTP Request Query String Parser
-- [ ] HTTP Request Body Parser
+- [x] HTTP Request Body Parser
 - [x] HTTP Response 200
 - [ ] HTTP Response 404
 - [ ] HTTP Response 302
